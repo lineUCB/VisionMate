@@ -28,6 +28,7 @@ This Recommendation system will give a Json format result as blow
 And it need 4 parameters as input:
 1. User current location (String)
 2. Yelp recommendation (Json string)
+3. user input (string)
 
 ![image](https://github.com/user-attachments/assets/8eda6fa2-d6be-4da0-8690-ab79b2d5384f)
 Link to LLM: https://rea.gent/noggins/embarrassing-badger-2621/use

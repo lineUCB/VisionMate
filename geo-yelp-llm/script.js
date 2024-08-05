@@ -70,10 +70,8 @@ async function getRestaurants(lat, lon) {
               Authorization: 'Bearer rg_v1_xcd49ad4oeltuef92n95lqc418avpcfv8xi3_ngk',
             },
             body: JSON.stringify({
-              "user_location": "",
+              "user_location": currentAddress,
               "yelp_recommendation": yelpJsonString,
-              "user_destination": "",
-              "store_type": "",
             }),
           }
         ).then(response2 => response2.text());

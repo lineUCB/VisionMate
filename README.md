@@ -31,3 +31,20 @@ And it need 4 parameters as input:
 
 ![image](https://github.com/user-attachments/assets/8eda6fa2-d6be-4da0-8690-ab79b2d5384f)
 Link to LLM: https://rea.gent/noggins/embarrassing-badger-2621/use
+
+# VisionMate
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Voice_Button_Activation
+Voice_Activation app.js code allows you to make any web page clickable through audio. Include the app.js script in an html file for the functionaliy to work. 

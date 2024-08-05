@@ -59,22 +59,23 @@ async function getRestaurants(lat, lon) {
         // import fetch from 'node-fetch'; // for node.js
 
         // Convert JSON data to a readable string format
-        const jsonString = JSON.stringify(data, null, 2);
+        const yelpJsonString = JSON.stringify(data, null, 2);
 
         const response2 = await fetch(
-            'https://noggin.rea.gent/associated-blackbird-7279',
-            {
+          'https://noggin.rea.gent/embarrassing-badger-2621',
+          {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer rg_v1_1nh0w0v55a2huel49o7a49siyt4xk2kqtwnv_ngk',
+              'Content-Type': 'application/json',
+              Authorization: 'Bearer rg_v1_xcd49ad4oeltuef92n95lqc418avpcfv8xi3_ngk',
             },
             body: JSON.stringify({
-                // fill variables here.
-                "currAddress": currentAddress,
-                "json": jsonString,
+              "user_location": "",
+              "yelp_recommendation": yelpJsonString,
+              "user_destination": "",
+              "store_type": "",
             }),
-            }
+          }
         ).then(response2 => response2.text());
         
         displayLLMResponse(response2);

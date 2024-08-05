@@ -31,7 +31,7 @@ And it need 4 parameters as input:
 3. user input (string)
 
 ![image](https://github.com/user-attachments/assets/8eda6fa2-d6be-4da0-8690-ab79b2d5384f)
-Link to LLM: https://rea.gent/noggins/embarrassing-badger-2621/use
+Link to LLM: https://rea.gent/noggins/bitter-tortoise-5338/use
 
 # VisionMate
 

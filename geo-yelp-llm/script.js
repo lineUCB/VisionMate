@@ -62,16 +62,17 @@ async function getRestaurants(lat, lon) {
         const yelpJsonString = JSON.stringify(data, null, 2);
 
         const response2 = await fetch(
-          'https://noggin.rea.gent/embarrassing-badger-2621',
+          'https://noggin.rea.gent/bitter-tortoise-5338',
           {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              Authorization: 'Bearer rg_v1_xcd49ad4oeltuef92n95lqc418avpcfv8xi3_ngk',
+              Authorization: 'Bearer rg_v1_79vrbtjafylswgzdafmk59e7ft5finlaqzkn_ngk',
             },
             body: JSON.stringify({
               "user_location": currentAddress,
               "yelp_recommendation": yelpJsonString,
+              "user_input":"";
             }),
           }
         ).then(response2 => response2.text());

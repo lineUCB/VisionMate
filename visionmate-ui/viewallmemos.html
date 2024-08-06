@@ -31,7 +31,7 @@
             font-size: 1rem; /* 14px equivalent */
             font-style: normal;
             font-weight: 400;
-            line-height: normal;
+            line-height: 1rem;
         }
     
     .mainButtontext {
@@ -87,12 +87,11 @@
         .mainmenuContainer {
             display: flex;
             height: 80vh;
-            align-items: flex-start;    
+            align-items: center;    
             flex-direction: column;
             justify-content: flex-start;
             gap: 1.25rem;
             margin-top: 12rem; /* Adjust this value to move the container lower */
-            padding-left: 2rem;
             position: relative;
         }
 
@@ -157,6 +156,23 @@
             align-self: center;
         }
 
+        .buttonContainerCenter2 {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 0rem;
+            border-radius: 4rem;
+            padding: 1rem 2rem;
+            background: #FEDC70;
+            align-self: center;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            white-space: nowrap; /* Prevent text from wrapping */
+            width: auto;
+        }
+        
+
         /* Media Queries for responsiveness */
         @media (min-width: 600px) {
             .allContainer {
@@ -189,6 +205,14 @@
         height: 100vh; /* Full viewport height to center vertically */
       }
 
+      .flexRowContainer {
+        display: flex;
+        flex-direction: row;
+        align-items: center; /* Optional: Center items vertically */
+        justify-content: space-between; /* Optional: Distribute items evenly */
+        gap: 1rem; /* Adjust the space between items */
+      }
+
       .subMenuContainer {
         max-width: 90%;
         width: auto; /* Convert width to rem */
@@ -202,18 +226,36 @@
           margin-bottom: 0.5rem; /* Reduce spacing between paragraphs */
       }
 
-      .subMenuContainer p:first-of-type {
-    margin-bottom: 0.1rem; /* Further reduce spacing after the first paragraph */
-}
 
-
-      
 
       .textContainer {
         max-width: 90%; /* Adjust the width as needed */
         padding: 0rem; /* Add padding for spacing */
         box-sizing: border-box; /* Include padding in the element's total width and height */
       }
+
+      .voiceSearchButton {
+        padding: 0.633rem 0.579rem;
+        gap: 0.529rem;
+        border-radius: 0.633rem;
+        box-shadow: 0px 0.211rem 0.211rem 0px rgba(0, 0, 0, 0.25);
+        align-self: center;
+      }
+
+      .memoListing {
+        display: flex;
+        height: 2rem;
+        gap: 1rem;
+        align-self: stretch;
+        border-radius: 0.75rem;
+        background: #FEDC70;
+        flex-direction: row;
+        margin-bottom: 1rem;
+        padding: 1rem ;
+        line-height: 1rem;
+        font-size: 0.8rem;
+        align-items: center;
+            }
 
     </style>
 
@@ -227,20 +269,29 @@
     <main>
       <div class = "mainmenuContainer">
         <div class = "subMenuContainer">
-          <p> mode: </p>
-          <p class = "projectBig"> Live Reccommendation </p>
+          <p class = "projectBig"> Now Showing All Memos </p>
+          <p> Scroll to View Options </p>
           <br>
           <br>
-        <div class ="buttonContainerCenter">
-            <a href="livereccommendation2.html" class="subButtontext">Begin Now</a>
+        <div class ="voiceSearchButton" id="searchButton">
+            <p> Tap to search for a specific voice memo </p>
         </div>
+        <div class ="voiceSearchButton" id="speakButton">
+          <p> Listening, describe your memo and we will find it for you! tap when finished. </p>
+      </div>
+      <div class ="voiceSearchButton" id="thinkingButton">
+        <p> Understood. Searching... </p>
+    </div>
         <br>
         <br>
-        <br>
-        <br>
-        <br>
-        <div class ="buttonContainerCenter">
-          <a href="livereccommendation.html" class="subButtontext">Set General Preferences</a>
+        <p> all memos listed below: </p>
+        <div class ="memoListing">
+          <p>Big Branch</p> 
+          <p> Nov 22, 2021 </p> 
+          <p> Adeline St </p>
+          <img class="imageContainer" src="playbutton.png" alt="Play Memo" />
+          <img class = "imageContainer" src="sharebutton.png" alt="Share Memo" />
+          <img class = "imageContainer" src="deletebutton.png" alt="Delete Memo" />
       </div>
       </div>
       </div>
@@ -253,5 +304,61 @@
   </div>
 </div>
     </main>
+    <script>
+      document.getElementById('speakButton').style.display = 'none';
+      document.getElementById('thinkingButton').style.display = 'none';
+      document.getElementById('searchButton').addEventListener('click', function() {
+        /* document.getElementById('listenButton').style.display = 'inline-flex';
+        document.getElementById('deleteButton').style.display = 'inline-flex'; */
+        document.getElementById('searchButton').style.display = 'none';
+        document.getElementById('speakButton').style.display = 'inline-flex';
+      });
+      document.getElementById('speakButton').addEventListener('click', function() {
+        /* document.getElementById('listenButton').style.display = 'inline-flex';
+        document.getElementById('deleteButton').style.display = 'inline-flex'; */
+        document.getElementById('speakButton').style.display = 'none';
+        document.getElementById('thinkingButton').style.display = 'inline-flex';
+
+        setTimeout(function() {
+       document.getElementById('searchButton').style.display = 'inline-flex';
+       document.getElementById('thinkingButton').style.display = 'none';
+     }, 5000);
+      });
+
+      //below is sample noggin call from hw.
+      // the way i think this will work is user will record, then we use transcriber to save as input
+      // then we use noggin to classify the memo and give it a title and such.
+      // every new classified memo should sequentially be titled memo1, memo2, memo3, etc. for
+      // sake of searchability. Next, when they search we use a different noggin that we ask to
+      // match the memo1, memo2, etc. to the user's input. then display that memo and hide all others.
+      // every memo will be listed below the search but hidden, and only the revealed one will be displayed.
+
+      /*document
+        .getElementById("suggest-form")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+
+          const userInput = document.getElementById("subject-input").value;
+
+          const response = await fetch( 
+            'https://noggin.rea.gent/sheer-bee-8941',
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer rg_v1_ljib0kjptdb9ngl28csrx851r1834waa0i0l_ngk',
+              },
+              body: JSON.stringify({
+                // fill variables here.
+                "preferences": userInput,
+              }),
+            }
+          ).then(response => response.text());
+
+          navigateToBlurb(response);
+
+        }); */
+
+  </script>
   </body>
 </html>

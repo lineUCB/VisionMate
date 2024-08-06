@@ -1,6 +1,6 @@
 // Don't push api keys to repo
-const yelpApiKey = 'TRGeoPcMrvrTtTRxvpwYgNxTAq-hJIxE8tQHudu7wtVkAdxlXt8CO_ddEc3Z0jmhZDQviYg2Z45OnUAEF3NJe1CxvDifa-VdFo67cZVqDzgBkPrIO4-QLBQ-v_qrZnYx';
-const googleApiKey = 'AIzaSyCmj2C87-DaHmF0CnNV5nfxqm-DVUlCpME';
+const yelpApiKey = '';
+const googleApiKey = '';
 
 // You can treat this as the main function
 function respond(userInput) {
@@ -19,10 +19,7 @@ function showPosition(position, userInput) {
     const lat = position.coords.latitude;
     const lon = position.coords.longitude;
 
-    identifyIntentFirst(userInput).then(triggerCommand => {
-        console.log('triggerCommand:', triggerCommand);
-        getRestaurants(lat, lon, triggerCommand);
-    });
+    getRestaurants(lat, lon, userInput);
 }
 
 // This function identifies a user's intent by taking in the user's transcribed audio input
@@ -40,7 +37,7 @@ async function identifyIntentFirst(userInput) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer rg_v1_ikqio64in5964woesbbzllecm42kyxvyz1ry_ngk',
+            Authorization: 'Bearer ',
         },
         body: JSON.stringify({
             // fill variables here.
@@ -73,13 +70,15 @@ async function getCurrentAddress(lat, lon) {
 
 // Passing in Yelp JSON results and current address to LLM. It also responds differently based 
 // on whether it is a continued conversation.
-async function getRestaurants(lat, lon, triggerCommand) {
+async function getRestaurants(lat, lon, userInput) {
+
+    command = await identifyIntentFirst(userInput);
 
     const currentAddress = await getCurrentAddress(lat, lon);
 
     try {
         let data;
-        if (triggerCommand == 'first') {
+        if (command == 'first') {
             const url = `https://api.yelp.com/v3/businesses/search?latitude=${lat}&longitude=${lon}&categories=restaurants&limit=10`;
             const options = {
                 headers: {
@@ -88,8 +87,6 @@ async function getRestaurants(lat, lon, triggerCommand) {
             };
             const response1 = await fetch(url, options);
             data = await response1.json();
-            console.log(lat);
-            console.log(lon);
             console.log(data);
             localStorage.setItem('storedData', JSON.stringify(data));
         } else {
@@ -98,34 +95,37 @@ async function getRestaurants(lat, lon, triggerCommand) {
             data = JSON.parse(localStorage.getItem('storedData'));
             console.log(data);
         }
-
-        if (data && data.businesses) {
-            displayRestaurantData(data.businesses);
+        if (!data || !data.businesses) {
+            console.error("Invalid input: data or businesses is null or undefined.");
         } else {
-            console.error('No businesses found in the response.');
+            displayRestaurantData(data.businesses);
         }
-
         // import fetch from 'node-fetch'; // for node.js
 
         // Convert JSON data to a readable string format
         const yelpJsonString = JSON.stringify(data, null, 2);
 
+        console.log(currentAddress);
+        console.log(yelpJsonString);
+        console.log(userInput);
+
         const response2 = await fetch(
-          'https://noggin.rea.gent/bitter-tortoise-5338',
+          'https://noggin.rea.gent/substantial-sole-3759',
           {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
-              Authorization: 'Bearer rg_v1_dkjyuqpzq8qyxxgou9epkkm9wj6jnlnofmyj_ngk',
+              Authorization: 'Bearer ',
             },
             body: JSON.stringify({
               "user_location": currentAddress,
               "yelp_recommendation": yelpJsonString,
-              "user_input":"",
+              "user_input": userInput,
             }),
           }
         ).then(response2 => response2.text());
 
+        // localStorage.removeItem('storedData');
         displayLLMResponse(response2);
     } catch (error) {
         console.error('Error fetching data from Yelp API:', error);

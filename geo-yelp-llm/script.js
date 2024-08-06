@@ -72,7 +72,7 @@ async function getRestaurants(lat, lon) {
             body: JSON.stringify({
               "user_location": currentAddress,
               "yelp_recommendation": yelpJsonString,
-              "user_input":"";
+              "user_input": transcription;
             }),
           }
         ).then(response2 => response2.text());

@@ -49,3 +49,11 @@ Link to LLM: https://rea.gent/noggins/bitter-tortoise-5338/use
 
 # Voice_Button_Activation
 Voice_Activation app.js code allows you to make any web page clickable through audio. Include the app.js script in an html file for the functionaliy to work. 
+
+# Voice Memo Function
+Download Whisper: https://github.com/openai/whisper
+To start server: 
+npm init -y
+npm install express multer
+node server.js
+and then go to: http://localhost:3000/

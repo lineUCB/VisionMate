@@ -54,7 +54,7 @@ Voice_Activation app.js code allows you to make any web page clickable through a
 Download Whisper: https://github.com/openai/whisper
 To start server: 
 ```
-npm init -y /n
+npm init -y
 npm install express multer
 node server.js
 go to: http://localhost:3000/

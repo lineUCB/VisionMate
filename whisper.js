@@ -18,11 +18,25 @@ async function transcribeAudio(audioPath) {
 
         whisperProcess.on('close', (code) => {
             if (code === 0) {
-                resolve(transcription);
+                const filteredTranscription = filterTranscription(transcription);
+                resolve(filteredTranscription);
             } else {
                 reject(new Error(`Whisper process exited with code ${code}`));
             }
         });
     });
 }
+
+function filterTranscription(transcription) {
+    // Split the transcription into lines
+    const lines = transcription.split('\n');
+    
+    // Find the last meaningful line
+    const meaningfulLine = lines.filter(line => line.includes(']')).pop();
+
+    // Extract the part after the last ']'
+    const lastBracketIndex = meaningfulLine.lastIndexOf(']');
+    return meaningfulLine.substring(lastBracketIndex + 1).trim();
+}
+
 module.exports = { transcribeAudio };

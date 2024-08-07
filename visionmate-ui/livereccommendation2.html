@@ -244,6 +244,9 @@
 
     <!-- Modify this CSS to style your interface -->
     <link rel="stylesheet" type="text/css" href="main.css" />
+
+    <script src="live_rec.js" defer></script>
+</head>
   </head>
   <body style="background-color: #FFFDE7;">
     <!-- Add your HTML code here (please feel free to remove any/all of this starter code) ! -->
@@ -312,6 +315,7 @@
         userMessage.textContent = userInput;
         document.getElementById('userMessages').appendChild(userMessage);
         document.getElementById('userInput').value = ''; // Clear the input field
+        respond(userInput);
     }
 });
 

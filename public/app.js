@@ -5,6 +5,8 @@ const memosDiv = document.getElementById('memos');
 let mediaRecorder;
 let recordedChunks = [];
 let currentPosition = null;
+
+// Geolocation updates every 5 seconds
 function updateGeolocation() {
     navigator.geolocation.getCurrentPosition((position) => {
         currentPosition = {
@@ -63,6 +65,8 @@ function addMemo(transcription, time, location) {
         <p>Location: ${location.latitude}, ${location.longitude}</p>
     `;
     memosDiv.appendChild(memoDiv);
+
+    // Check if there's a previously transcribed memo at the same location
     document.querySelectorAll('.memo').forEach(memo => {
         const memoLocation = JSON.parse(memo.getAttribute('data-location'));
         if (memoLocation.latitude === location.latitude && memoLocation.longitude === location.longitude) {

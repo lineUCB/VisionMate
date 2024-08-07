@@ -1,6 +1,6 @@
 // Don't push api keys to repo
-const yelpApiKey = '';
-const googleApiKey = '';
+const yelpApiKey = 'c1b3EKzeshP3Id6eGlcAFtxOMLZiIcW32ZnHc3eOJP4dOvPrzbVjWYBiVlf8XS8M539Vr71IEbKdx8Xh_RHtyQGVprxNY-2OiSaOLfuJKQ5bubMWElJcIezyE7qyZnYx';
+const googleApiKey = 'AIzaSyCMwMw6n-quv0pNZh0Er5LS2zJtyUTqEIw';
 
 // You can treat this as the main function
 function respond(userInput) {
@@ -37,7 +37,7 @@ async function identifyIntentFirst(userInput) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            Authorization: 'Bearer ',
+            Authorization: 'Bearer rg_v1_ikqio64in5964woesbbzllecm42kyxvyz1ry_ngk',
         },
         body: JSON.stringify({
             // fill variables here.
@@ -74,7 +74,7 @@ async function getRestaurants(lat, lon, userInput) {
 
     command = await identifyIntentFirst(userInput);
 
-    const currentAddress = await getCurrentAddress(lat, lon);
+    // const currentAddress = await getCurrentAddress(lat, lon);
 
     try {
         let data;
@@ -105,25 +105,26 @@ async function getRestaurants(lat, lon, userInput) {
         // Convert JSON data to a readable string format
         const yelpJsonString = JSON.stringify(data, null, 2);
 
-        console.log(currentAddress);
-        console.log(yelpJsonString);
+        console.log(data);
         console.log(userInput);
 
+        // import fetch from 'node-fetch'; // for node.js
+
         const response2 = await fetch(
-          'https://noggin.rea.gent/substantial-sole-3759',
-          {
+            'https://noggin.rea.gent/painful-koala-9693',
+            {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json',
-              Authorization: 'Bearer ',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer rg_v1_d2f9ea4u17kprijpqgad3tub67i0mgxyovvl_ngk',
             },
             body: JSON.stringify({
-              "user_location": currentAddress,
-              "yelp_recommendation": yelpJsonString,
-              "user_input": userInput,
+                // fill variables here.
+                "user_input": userInput,
+                "yelp_recommendation": yelpJsonString,
             }),
-          }
-        ).then(response2 => response2.text());
+            }
+        ).then(response => response.text());
 
         // localStorage.removeItem('storedData');
         displayLLMResponse(response2);

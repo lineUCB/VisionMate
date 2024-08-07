@@ -319,6 +319,14 @@
     }
 });
 
+      document.addEventListener('DOMContentLoaded', function() {
+          respond("NA");
+          // Call the respond function every 2 minutes
+          setInterval(function() {
+              respond("NA");
+          }, 120000);
+      });
+
     </script>
   </body>
 </html>

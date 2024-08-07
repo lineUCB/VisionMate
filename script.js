@@ -1,6 +1,6 @@
 // Don't push api keys to repo
-const yelpApiKey = '';
-const googleApiKey = '';
+const yelpApiKey = 'c1b3EKzeshP3Id6eGlcAFtxOMLZiIcW32ZnHc3eOJP4dOvPrzbVjWYBiVlf8XS8M539Vr71IEbKdx8Xh_RHtyQGVprxNY-2OiSaOLfuJKQ5bubMWElJcIezyE7qyZnYx';
+const googleApiKey = 'AIzaSyCMwMw6n-quv0pNZh0Er5LS2zJtyUTqEIw';
 
 const recordButton = document.getElementById('recordButton');
 const status = document.getElementById('status');
@@ -112,16 +112,17 @@ function addMemo(transcription, time, location) {
 // Passing in Yelp JSON results and current address to LLM. Please replace with a different noggin.
 // It's also pretty expensive right now to do a singe run on GPT-4o. Maybe try GPT-4o mini or 3.5?
 async function getRestaurants(transcription, lat, lon) {
-    const url = `https://api.yelp.com/v3/businesses/search?latitude=${lat}&longitude=${lon}&categories=restaurants&limit=10`;
-    const options = {
-        headers: {
-            Authorization: `Bearer ${yelpApiKey}`,
-        },
-    };
     
     const currentAddress = await getCurrentAddress(lat, lon);
 
     try {
+        const url = `https://api.yelp.com/v3/businesses/search?latitude=${lat}&longitude=${lon}&categories=restaurants&limit=10`;
+        const options = {
+            headers: {
+                Authorization: `Bearer ${yelpApiKey}`,
+            },
+        };
+
         const response1 = await fetch(url, options);
         const data = await response1.json();
 
